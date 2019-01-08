@@ -50,6 +50,13 @@ The WebSocket Protocol enables two-way communication between a client running un
 +---------------------------------------------------------------+
 ```
 
+---
+
+## Basic Flow
+
+- Normal HTTP Connection
+- HTTP 1.1 Upgrade to Websocket
+- Frames are sent back and forth
 
 ---
 
@@ -61,45 +68,6 @@ The WebSocket Protocol enables two-way communication between a client running un
 
 - Low level websockets
 - Dealing with frames directly
-
----
-
-[.code-highlight: all]
-[.code-highlight: 2]
-[.code-highlight: 4-10]
-[.code-highlight: 12-14]
-
-```elixir
-defmodule Web.SocketHandler do
-  @behaviour :cowboy_websocket
-
-  def init(req, opts) do
-    {:cowboy_websocket, req, opts}
-  end
-
-  def websocket_init(_state) do
-    {:ok, %{}}
-  end
-
-  def websocket_handle({:text, message}, state) do
-    {:reply, {:text, message}, state}
-  end
-end
-```
-
----
-
-[.code-highlight: 4-6]
-
-```elixir
-defmodule Web.SocketHandler do
-  # ...
-
-  def websocket_handle({:ping, message}, state) do
-    {:reply, {:pong, message}, state}
-  end
-end
-```
 
 ---
 
@@ -200,61 +168,6 @@ end
 
 ---
 
-### Gun
-
-- From the makers of `cowboy`
-- Similar flow to `gen_tcp`
-
----
-
-[.code-highlight: all]
-[.code-highlight: 2-6]
-[.code-highlight: 8-10]
-[.code-highlight: 12-15]
-
-```elixir
-defmodule Gossip.Socket do
-  use GenServer
-
-  def start_link() do
-    GenServer.start_link(__MODULE__, state, [name: Gossip.Socket])
-  end
-
-  def init(_) do
-    {:ok, state, {:continue, :connect}}
-  end
-
-  def handle_continue(:connect, state) do
-    {:ok, pid} = :gun.open(String.to_charlist(hostname), portnum)
-    {:noreply, Map.put(state, :conn, pid)}
-  end
-end
-```
----
-
-[.code-highlight: 2-5]
-[.code-highlight: 7-9]
-[.code-highlight: 11-13]
-
-```elixir
-defmodule Gossip.Socket do
-  def handle_info({:gun_up, from, _protocol}, state) do
-    _ref = :gun.ws_upgrade(state.conn, String.to_charlist(path))
-    {:noreply, state}
-  end
-
-  def handle_info({:gun_upgrade, from, _, _, _}, state) do
-    {:noreply, state}
-  end
-
-  def handle_info({:gun_ws, _from, _ref, frame}, state) do
-    {:noreply, state}
-  end
-end
-```
-
----
-
 ## JavaScript
 
 ---
@@ -280,34 +193,6 @@ channel.join().
   receive("ok", (e) => {
     console.log("Connected!");
   });;
-```
-
----
-
-### Plain JS
-
----
-
-[.code-highlight: all]
-[.code-highlight: 1]
-[.code-highlight: 3-5]
-[.code-highlight: 7-9]
-[.code-highlight: 11-13]
-
-```javascript
-let socket = new WebSocket("/socket");
-
-ws.onopen = function() {
-  console.log("Opened");
-}
-
-ws.onmessage = function(message) {
-  console.log(message);
-}
-
-ws.onclose = function() {
-  console.log(message);
-}
 ```
 
 ---
