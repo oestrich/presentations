@@ -1,5 +1,4 @@
 # All Aboard the Stateful Train
-### Going Beyond a Standard Phoenix Application
 
 [.header: #FDDF26, text-scale(2.5)]
 [.text: #FFFFFF]
@@ -8,12 +7,6 @@
 
 Eric Oestrich
 SmartLogic
-
-^ maybe throw in a couple examples of stateful apps that aren’t yours? just for helping folks imagine when they might want to be stateful
-^ maybe add along with your easy steps to being more stateful section a little bit on when stateful makes sense
-^ only other thought is if there’s anything you would apply from stateful thinking to non-stateful apps, could add that in the wrapup, or maybe, questions you might ask yourself to help determine whether you should think about making yr app stateful (i am sort of repeating myself here w/ my comment above)
-^ one other thought is if you ever found yourself walking down a path of trying to make exventure work w/o state, sort of showing how gnarly that would be to try to make work could help make the point of ‘why stateful’
-^ sometimes showing how complicated one path gets can help show why it’s a bad idea / where a given system breaks down and you need to look to a diff kind of structure, or on the stateful apps example, you could talk about non-web apps that are stateful and why state is important to them
 
 ---
 
@@ -75,10 +68,10 @@ Based in Baltimore, we've built over 150 apps since 2005.
 
 # Standard Application Examples
 
-- Blog, e.g. Wordpress
-- CRM, e.g. Hubspot
-- Wiki, e.g. Wikipedia
-- Ecommerce, e.g. Shopify
+- Wordpress
+- Hubspot
+- Wikipedia
+- Shopify
 
 ---
 
@@ -91,7 +84,7 @@ Based in Baltimore, we've built over 150 apps since 2005.
 - Heavy use of OTP
 - "Background" processes
 
-^ TODO How does data flow through this?
+^ TODO How does data flow through this? see later in the examples, just show a quick snippet up here first
 
 ---
 
@@ -99,7 +92,7 @@ Based in Baltimore, we've built over 150 apps since 2005.
 
 # OTP and Processes
 
-- Open Telecom Platform
+- Used to be Open Telecom Platform
 - OTP is the standard library of Erlang
 - GenServers, supervision trees, :ets, all the fun stuff
 - Processes are the base building block of Erlang concurrency
@@ -144,6 +137,20 @@ Based in Baltimore, we've built over 150 apps since 2005.
 
 # Let's review some stateful applications
 
+^ Max and mid stateful
+
+---
+
+[.text: alignment(center)]
+
+![original](plain-slide.png)
+
+![inline](exventure.png)
+
+^ Stateless |-------------------*| Stateful
+
+^ TODO graphic of stateless to stateful, exventure on the edge
+
 ---
 
 [.text: alignment(center)]
@@ -155,7 +162,7 @@ Based in Baltimore, we've built over 150 apps since 2005.
 A MUD Server
 [exventure.org](https://exventure.org)
 
-![inline](exventure.png)
+![inline](exventure-state.jpg)
 
 ---
 
@@ -166,6 +173,8 @@ A MUD Server
 - Multi-User [Dungeon](https://en.wikipedia.org/wiki/Dungeon_\(video_game\))
 - Online text adventure
 - Connects with telnet
+
+^ 1976 for Dungeon
 
 ---
 
@@ -210,7 +219,7 @@ The flagship ExVenture instance
 
 # Demo
 
-^ TODO diagram of how actors work together
+^ TODO diagram of how actors work together - we'll see this later
 
 ---
 
@@ -232,6 +241,18 @@ The flagship ExVenture instance
 
 ![original](plain-slide.png)
 
+[.text: alignment(center)]
+
+![inline](grapevine.png)
+
+^ Stateless |---------*----------| Stateful
+
+^ TODO graphic of stateless to stateful, grapevine in the middle
+
+---
+
+![original](plain-slide.png)
+
 # Grapevine
 
 [.text: alignment(center)]
@@ -239,7 +260,7 @@ The flagship ExVenture instance
 MUD community site
 [grapevine.haus](https://grapevine.haus)
 
-![inline](grapevine.png)
+![inline](grapevine-state.jpg)
 
 ---
 
@@ -257,7 +278,7 @@ MUD community site
 
 # Review of Grapevine
 
-- Close to a typical application
+- Close to a standard application
 - State involved is websocket and telnet
 - Caches
 
@@ -301,12 +322,6 @@ MUD community site
 
 ![original](section-div.png)
 
-# Depends
-
----
-
-![original](section-div.png)
-
 # Do I want this?
 
 ^ Maybe
@@ -314,29 +329,57 @@ MUD community site
 
 ---
 
-![original](section-div.png)
+![original](plain-slide.png)
 
 # Depends
 
 ---
 
-![original](plain-slide.png)
+![original](section-div.png)
 
 # Pros
-
-- Soft realtime capabilities
-- Website feels "alive"
-- It's cool
 
 ---
 
 ![original](plain-slide.png)
 
+# Soft realtime capabilities
+
+## Erlang is built for soft realtime
+
+---
+
+![original](plain-slide.png)
+
+# Website feels "alive"
+
+## Websockets can update your website without a refresh
+
+^ Great example: live view
+
+---
+
+![original](plain-slide.png)
+
+# Reduced Database Queries
+
+## Less round trips to the database for faster response times
+
+---
+
+![original](section-div.png)
+
 # Cons
 
-- Requires heavy usage of OTP
-- Caches are Hard™
-- Harder to deploy
+---
+
+![original](plain-slide.png)
+
+# Requires heavy usage of OTP
+
+## You must architect out how your application is laid out in memory
+
+^ Not using the one given to you from Phoenix
 
 ---
 
@@ -344,7 +387,7 @@ MUD community site
 
 # Caches are Hard™
 
-> There are 2 hard problems in computer science: cache invalidation, naming things, and off-by-1 errors.
+## There are 2 hard problems in computer science: cache invalidation, naming things, and off-by-1 errors.
 
 ---
 
@@ -365,6 +408,8 @@ MUD community site
 
 ![inline](rolling-restart.jpg)
 
+^ old and new code live together
+
 ---
 
 ![original](plain-slide.png)
@@ -372,7 +417,14 @@ MUD community site
 # Here be Dragons
 
 - Mailbox size
+- Message passing *copies*
 - Clustering woes
+
+![left](dragon.jpg)
+
+[.footer: https://unsplash.com/photos/vVKbHNhu2ZU]
+
+^ this is a challenge to do and do well
 
 ---
 
@@ -384,101 +436,12 @@ MUD community site
 
 ![original](plain-slide.png)
 
-# Easy steps to start being more stateful
-
-- GenServers
-- Supervision Trees
-- :ets
-
----
-
-![original](plain-slide.png)
-
 # GenServers
 
 - The basic building block of OTP
 - Handle messages out of the HTTP process
 - Background tasks
 - Any kind of state you want to hang on to
-
----
-
-![original](plain-slide.png)
-
-# GenServer Example
-
-^ TODO Maybe drop, switch to architecture?
-
-```elixir
-defmodule Counter do
-  use GenServer
-
-  def start_link(opts) do
-    GenServer.start_link(__MODULE__, [], opts)
-  end
-
-  def init(_) do
-    {:ok, %{count: 1}}
-  end
-end
-```
-
----
-
-![original](plain-slide.png)
-
-# GenServer Example
-
-```elixir
-defmodule Counter do
-  # ...
-
-  def increment(pid, count \\ 1) do
-    GenServer.call(pid, {:increment, count})
-  end
-
-  def handle_call({:increment, count}, _from, state) do
-    state = Map.put(state, :count, state.count + count)
-    {:reply, state.count, state}
-  end
-end
-```
-
----
-
-![original](plain-slide.png)
-
-# GenServer Example
-
-```elixir
-defmodule Counter do
-  # ...
-
-  def get(pid) do
-    GenServer.call(pid, :current)
-  end
-
-  def handle_call(:current, _from, state) do
-    {:reply, state.count, state}
-  end
-end
-```
-
----
-
-![original](plain-slide.png)
-
-# GenServer Example
-
-```elixir
-iex> {:ok, pid} = Counter.start_link([])
-iex> Counter.inc(pid)
-2
-iex> Counter.inc(pid, 3)
-5
-iex> Counter.get(pid)
-5
-```
 
 ---
 
@@ -496,72 +459,6 @@ Watch over your GenServers
 
 ![original](plain-slide.png)
 
-# Supervision Tree Example
-
-```elixir
-defmodule Counters do
-  use Supervisor
-
-  def start_link(opts) do
-    Supervisor.start_link(__MODULE__, [], opts)
-  end
-
-  def init(_) do
-    children = [
-      {Counter, []}
-    ]
-
-    Supervisor.init(children, strategy: :one_for_one)
-  end
-end
-```
-
----
-
-![original](plain-slide.png)
-
-# Dynamic Example
-
-```elixir
-defmodule Counters do
-  use DynamicSupervisor
-
-  def start_link(opts) do
-    DynamicSupervisor.start_link(__MODULE__, [], opts)
-  end
-
-  def start_client(pid, opts) do
-    spec = {Counter, opts}
-    DynamicSupervisor.start_child(pid, spec)
-  end
-
-  def init(_) do
-    DynamicSupervisor.init(strategy: :one_for_one)
-  end
-end
-```
-
----
-
-![original](plain-slide.png)
-
-# Dynamic Example
-
-```elixir
-iex> {:ok, counter1} =
-  Counters.start_child(supervisor_pid, [])
-iex> {:ok, counter2} =
-  Counters.start_child(supervisor_pid, [])
-iex> Counter.inc(counter1)
-2
-iex> Counter.inc(counter1)
-3
-```
-
----
-
-![original](plain-slide.png)
-
 # :ets
 
 - Erlang Term Storage
@@ -573,72 +470,71 @@ iex> Counter.inc(counter1)
 
 ---
 
-![original](plain-slide.png)
+![original](section-div.png)
 
-# :ets Example
+# Put It All Together
 
-```elixir
-defmodule Items do
-  use GenServer
-  # ...
-
-  def init(_) do
-    :ets.new(__MODULE__, [:set, :protected, :named_table])
-    # ...
-  end
-
-  def handle_cast({:update, item}, state) do
-    :ets.insert(__MODULE__, {item.id, item})
-    {:noreply, state}
-  end
-end
-```
+^ TODO Lots of diagrams
 
 ---
 
 ![original](plain-slide.png)
 
-# :ets Example
+# Diagram of ExVenture
 
-```elixir
-defmodule Items do
-  # ...
-
-  def get(id) do
-    case :ets.lookup(__MODULE__, item_id) do
-      [{^item_id, item}] ->
-        {:ok, item}
-
-      [] ->
-        {:error, :not_found}
-    end
-  end
-
-  # ...
-end
-```
+![inline](exventure-diagram.jpg)
 
 ---
 
 ![original](plain-slide.png)
 
-# :ets Example
+# Connecting to the World
 
-```elixir
-iex> potion = %Item{name: "Potion"}
-iex> {:ok, items} = Items.start_link([])
-iex> Items.update(potion)
-:ok
-iex> Items.get(potion.id)
-{:ok, %Item{name: "Potion"}}
-```
+![inline](exventure-connecting.jpg)
 
 ---
 
-# Other OTP Goodies
+![original](plain-slide.png)
 
-- `:pg2`
-- `:mnesia`
+# Players Acting on the World
+
+![left](player-acting.jpg)
+
+^ Notice no DB
+
+---
+
+![original](plain-slide.png)
+
+# Updating a Skill from the Admin
+
+![inline](exventure-updating-skills.jpg)
+
+---
+
+![original](plain-slide.png)
+
+# Using a Skill
+
+![inline](exventure-use-skill.jpg)
+
+^ Notice no DB
+
+---
+
+![original](plain-slide.png)
+
+# Grapevine Chat
+
+![inline](grapevine-flow.jpg)
+
+---
+
+![original](plain-slide.png)
+
+# Grapevine Web Telnet Client
+
+![inline](grapevine-browser-reload.jpg)
 
 ---
 
@@ -646,14 +542,59 @@ iex> Items.get(potion.id)
 
 # Wrap Up
 
+^ TODO roll into intro
+
+^ elixir gives you the tools to build a very stateful application without round tripping to the db each request, performance improvements, easier to diagram, easier to architect/reason about
+
 ---
 
 ![original](plain-slide.png)
 
-# Wrap Up
+# Elixir gives you the tools to build a stateful application with ease.
 
-- Stateful can be useful if you need
-- You may not need it
+^ Easier to architect and reason about
+
+---
+
+![original](plain-slide.png)
+
+# Ram and CPUs are cheap, use 'em
+
+---
+
+![original](plain-slide.png)
+
+# LiveView is an easy way to start stateful
+
+^ And you can continue more stateful by sending messages to that process
+
+---
+
+![original](plain-slide.png)
+
+# Finally, you might not need it
+
+---
+
+![original](plain-slide.png)
+
+# GitHub
+
+- [oestrich on GitHub](github.com/oestrich)
+- [oestrich/ex_venture](https://github.com/oestrich/ex_venture)
+- [oestrich/grapevine](https://github.com/oestrich/grapevine)
+
+---
+
+![original](plain-slide.png)
+
+[.text: alignment(center)]
+
+# Titans of Text
+
+[titansoftext.com](https://www.titansoftext.com)
+
+![inline](titans.jpg)
 
 ---
 
@@ -680,7 +621,8 @@ iex> Items.get(potion.id)
 
 ---
 
-![original](section-div.png)
+[.header: #FDDF26, text-scale(1.5)]
 
-# Questions?
+![original](closer-slide.png)
 
+# Thanks!
