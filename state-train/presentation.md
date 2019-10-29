@@ -1,7 +1,7 @@
 # All Aboard the Stateful Train
 
-[.header: #FDDF26, text-scale(2.5)]
-[.text: #FFFFFF]
+[.header: #FDDF26, line-height(.8), text-scale(2), Circular Std]
+[.text: #FFFFFF, Circular Std]
 
 ![original](title-slide.png)
 
@@ -9,10 +9,11 @@ Eric Oestrich
 SmartLogic
 
 ---
+[.header: #37A792, alignment(left), Circular Std]
 
 ![original](plain-slide.png)
-
 ![left](eric.png)
+
 
 # Who am I?
 
@@ -20,6 +21,7 @@ Eric Oestrich
 Wizard at SmartLogic
 
 ---
+[.header: #37A792, alignment(left), Circular Std]
 
 ![original](plain-slide.png)
 
@@ -444,7 +446,7 @@ MUD community site
 - Any kind of state you want to hang on to
 
 ---
-
+[.text: #666666, alignment(center), Circular Std]
 ![original](plain-slide.png)
 
 # Supervision Trees
@@ -621,7 +623,7 @@ Watch over your GenServers
 
 ---
 
-[.header: #FDDF26, text-scale(1.5)]
+[.header: #FDDF26, text-scale(1.5), Circular Std]
 
 ![original](closer-slide.png)
 
