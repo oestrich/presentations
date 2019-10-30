@@ -8,6 +8,15 @@
 Eric Oestrich
 SmartLogic
 
+^ Before presenting, make sure:
+^ - ExVenture, Spigot, and Grapevine online
+^ - ExVenture connected to grapevine, user has chat enabled
+^ - Spigot OAuth works
+^ Load these:
+^ - https://grapevine.haus/games
+^ - https://grapevine.haus/games/online
+^ - https://grapevine.haus/games/ChatMUD/stats
+
 ---
 [.header: #37A792, alignment(left), Circular Std]
 
@@ -103,7 +112,7 @@ Based in Baltimore, we've built over 150 apps since 2005.
 
 ![original](plain-slide.png)
 
-# Supervision Tree
+# Supervision Trees & Processes
 
 ![inline](supervision-tree.png)
 
@@ -236,7 +245,7 @@ The flagship ExVenture instance
 # Not Really
 
 - Poll based?
-- Background worker that updated the world every X seconds?
+- Worker that updated the world?
 - Gross
 
 ---
@@ -248,8 +257,6 @@ The flagship ExVenture instance
 ![inline](grapevine.png)
 
 ^ Stateless |---------*----------| Stateful
-
-^ TODO graphic of stateless to stateful, grapevine in the middle
 
 ---
 
@@ -347,7 +354,7 @@ MUD community site
 
 # Soft realtime capabilities
 
-## Erlang is built for soft realtime
+### Erlang is built for soft realtime
 
 ---
 
@@ -355,7 +362,7 @@ MUD community site
 
 # Website feels "alive"
 
-## Websockets can update your website without a refresh
+### Websockets can update your website without a refresh
 
 ^ Great example: live view
 
@@ -365,7 +372,7 @@ MUD community site
 
 # Reduced Database Queries
 
-## Less round trips to the database for faster response times
+### Less round trips to the database for faster response times
 
 ---
 
@@ -379,7 +386,7 @@ MUD community site
 
 # Requires heavy usage of OTP
 
-## You must architect out how your application is laid out in memory
+### You must architect out how your application is laid out in memory
 
 ^ Not using the one given to you from Phoenix
 
@@ -389,7 +396,7 @@ MUD community site
 
 # Caches are Hard™
 
-## There are 2 hard problems in computer science: cache invalidation, naming things, and off-by-1 errors.
+### There are 2 hard problems in computer science: cache invalidation, naming things, and off-by-1 errors.
 
 ---
 
@@ -475,8 +482,6 @@ Watch over your GenServers
 ![original](section-div.png)
 
 # Put It All Together
-
-^ TODO Lots of diagrams
 
 ---
 
@@ -617,14 +622,25 @@ Watch over your GenServers
 [.text: alignment(center)]
 
 # Season 3 of ~~Smart Software~~
-# Elixir Wizards
 
 [podcast.smartlogic.io](https://podcast.smartlogic.io)
 
 ---
 
+![original](plain-slide.png)
+
+[.text: alignment(center)]
+
+# Season 3 of Elixir Wizards
+
+[podcast.smartlogic.io](https://podcast.smartlogic.io)
+
+![inline](elixir-wizards.png)
+
+---
+
 [.header: #FDDF26, text-scale(1.5), Circular Std]
 
-![original](closer-slide.png)
+![original](title-slide.png)
 
 # Thanks!
